@@ -10,7 +10,7 @@ var webserver = require('gulp-webserver');
 var srcFiles = 'src/*.{html,css,js,jsx}';
 var buildDir = './build';
 
-var copy = function() {
+var build = function() {
   var jsFiles = gulp.src(srcFiles)
     .pipe(ignore.include('**/*.jsx'))
     .pipe(babel({
@@ -32,17 +32,17 @@ gulp.task('clean', function() {
   return del(buildDir);
 });
 
-gulp.task('copy', ['clean'], copy);
-gulp.task('copy-watch', copy);
+gulp.task('build', ['clean'], build);
+gulp.task('build-watch', build);
 
 gulp.task('watch', function() {
-  var watcher = gulp.watch(srcFiles, ['copy-watch']);
+  var watcher = gulp.watch(srcFiles, ['build-watch']);
   watcher.on('change', function(event) {
     console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
   });
 });
 
-gulp.task('webserver', ['copy'], function() {
+gulp.task('webserver', ['build'], function() {
   gulp.src(buildDir)
     .pipe(webserver({
       livereload: true,
@@ -51,4 +51,6 @@ gulp.task('webserver', ['copy'], function() {
     }));
 });
 
-gulp.task('default', ['watch', 'copy', 'webserver'])
+gulp.task('dev', ['watch', 'build', 'webserver'])
+
+gulp.task('default', ['build'])

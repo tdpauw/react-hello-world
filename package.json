@@ -4,7 +4,8 @@
   "description": "React Hello World",
   "main": "gulpfile.js",
   "scripts": {
-    "dev": "gulp"
+    "build": "gulp",
+    "dev": "gulp dev"
   },
   "author": "Thierry de Pauw",
   "license": "MIT",
