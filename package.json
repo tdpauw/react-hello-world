@@ -9,11 +9,14 @@
   "author": "Thierry de Pauw",
   "license": "MIT",
   "devDependencies": {
-    "gulp": "^3.9.0",
-    "gulp-webserver": "^0.9.1",
+    "babel-preset-react": "^6.5.0",
     "del": "^2.2.0",
+    "gulp": "^3.9.0",
+    "gulp-babel": "^6.1.2",
+    "gulp-concat": "^2.6.0",
+    "gulp-ignore": "^2.0.1",
+    "gulp-webserver": "^0.9.1",
     "merge-stream": "^1.0.0"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }

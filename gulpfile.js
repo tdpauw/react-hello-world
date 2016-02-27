@@ -2,29 +2,30 @@ var gulp = require('gulp');
 
 var del = require('del');
 var merge = require('merge-stream');
+var babel = require('gulp-babel');
+var concat = require('gulp-concat');
+var ignore = require('gulp-ignore');
 var webserver = require('gulp-webserver');
 
-var srcFiles = ['src/*.{html,js,jsx,css}'];
+var srcFiles = 'src/*.{html,css,js,jsx}';
 var buildDir = './build';
 
 var copy = function() {
-  var src = gulp.src(srcFiles, { base: 'src' })
+  var jsFiles = gulp.src(srcFiles)
+    .pipe(ignore.include('**/*.jsx'))
+    .pipe(babel({
+      presets: ['react'],
+      only: '**/*.jsx',
+      compact: false
+    }))
+    .pipe(concat('app.js'))
     .pipe(gulp.dest(buildDir));
 
-  // var vendor = gulp.src(
-  //     [
-  //       './node_modules/bootstrap/dist/css/bootstrap.min.css',
-  //       './node_modules/bootstrap/dist/css/bootstrap.min.css.map',
-  //       './node_modules/font-awesome/css/font-awesome.min.css',
-  //       './node_modules/font-awesome/fonts/*.*',
-  //       './node_modules/jquery/dist/jquery.min.js'
-  //     ], {
-  //       base: '.'
-  //     })
-  //   .pipe(gulp.dest(buildDir));
+  var otherFiles = gulp.src(srcFiles)
+    .pipe(ignore.exclude('**/*.jsx'))
+    .pipe(gulp.dest(buildDir));
 
-  // return merge(src, vendor);
-  return src;
+  return merge(jsFiles, otherFiles);
 };
 
 gulp.task('clean', function() {
