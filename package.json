@@ -1,0 +1,19 @@
+{
+  "name": "react-hello-world",
+  "version": "0.0.1",
+  "description": "React Hello World",
+  "main": "gulpfile.js",
+  "scripts": {
+    "dev": "gulp"
+  },
+  "author": "Thierry de Pauw",
+  "license": "MIT",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-webserver": "^0.9.1",
+    "del": "^2.2.0",
+    "merge-stream": "^1.0.0"
+  },
+  "dependencies": {
+  }
+}
